@@ -9,7 +9,7 @@ def print_help() -> None:
     print("  list")
     print("  add <id> <name>")
     print("  remove <id>")
-    print("  export <format> <file_path>  (json)")
+    print("  export <format> <file_path>  (json, yaml)")
     print("  quit")
 
 
@@ -72,8 +72,13 @@ def main() -> None:
             if export_format == "json":
                 service.export_students_json(file_path)
                 print(f"Exported JSON to '{file_path}'.")
+
+            elif export_format == "yaml":
+                service.export_students_yaml(file_path)
+                print(f"Exported YAML to '{file_path}'.")
+                
             else:
-                print("Format not supported. Use json.")
+                print("Format not supported. Use json or yaml.")
                 
 
         else:
