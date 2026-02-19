@@ -1,4 +1,3 @@
-import csv
 import json
 
 from student import Student
@@ -38,3 +37,12 @@ class StudentService:
             if student.student_id == student_id:
                 return student
         return None
+    
+    def export_students_json(self, file_path: str) -> None:
+        data: list[dict[str, str]] = [
+            {"id": student.student_id, "name": student.name}
+            for student in self._students
+        ]
+
+        with open(file_path, "w", encoding="utf-8") as json_file:
+            json.dump(data, json_file, indent=2, ensure_ascii=False)
