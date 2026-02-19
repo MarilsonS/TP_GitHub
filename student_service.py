@@ -1,5 +1,4 @@
-import csv
-import json
+import yaml
 
 from student import Student
 
@@ -32,6 +31,15 @@ class StudentService:
 
         self._students.remove(student)
         return True
+    
+    def export_students_yaml(self, file_path: str) -> None:
+        data: list[dict[str, str]] = [
+            {"id": student.student_id, "name": student.name}
+            for student in self._students
+        ]
+
+        with open(file_path, "w", encoding="utf-8") as yaml_file:
+            yaml.safe_dump(data, yaml_file, sort_keys=False, allow_unicode=True)
 
     def _find_by_id(self, student_id: str) -> Student | None:
         for student in self._students:
